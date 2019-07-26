@@ -11,8 +11,7 @@ import domain.Etape;
 public class EtapeService {
 
 	public void initDefaultValue(Connection conn) {
-		try (PreparedStatement stmt = conn
-				.prepareStatement("INSERT INTO etape(gare_id, terminus, train_id, ordre) VALUES(?,?,?,?)")) {
+		try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO etape(gare_id, terminus, train_id, ordre) VALUES(?,?,?,?)")) {
 			List<Etape> etapes = new ArrayList<>();
 			etapes.add(new Etape(1L, true, 1L, 1));
 			etapes.add(new Etape(2L, true, 2L, 1));
@@ -22,7 +21,7 @@ public class EtapeService {
 			etapes.add(new Etape(4L, false, 4L, 1));
 			etapes.add(new Etape(5L, false, 4L, 2));
 			etapes.add(new Etape(6L, true, 4L, 3));
-			for (Etape etape : etapes) {
+			for (Etape etape : etapes) {		
 				stmt.setLong(1, etape.getGareId());
 				stmt.setBoolean(2, etape.isTerminus());
 				stmt.setLong(3, etape.getTrainId());

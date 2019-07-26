@@ -2,11 +2,16 @@ package tpsncf;
 
 import java.util.Scanner;
 
+import domain.Train;
+
+import java.util.Date;
+
 import service.CarteReductionService;
 import service.Connexion;
 import service.EtapeService;
 import service.GareService;
 import service.TrainService;
+
 
 public class Sncf {
 
@@ -63,6 +68,28 @@ public class Sncf {
 			switch (chx1) {
 			case 1:
 				System.out.println("Creation d'un train");
+				System.out.println("Nouvelle gare de départ :" );
+				long chx2 = scan.nextInt();
+				
+				System.out.println("Nouvelle date de départ (AAAA,MM,JJ):" );
+				int annee=  scan.nextInt();
+				int mois=scan.nextInt();
+				int jour=scan.nextInt();
+				Date chx3 = new Date(annee,mois,jour);
+				
+				System.out.println("Nouveau numéro de train :" );
+				String chx4 = scan.next();
+				
+				System.out.println("Nombre de place du nouveau train :" );
+				int chx5 = scan.nextInt();
+				
+				System.out.println("Type du nouveau train (TGV ou TER):" );
+				String chx6 = scan.next();
+				
+				Train train = new Train(chx2, chx3, chx4, chx5, chx6);
+				
+				trainService.CreateTrain(connexion.getConn(),train);
+				
 				break;
 			case 2:
 				System.out.println("Suppression d'un train");
@@ -71,7 +98,15 @@ public class Sncf {
 				trainService.deleteTrain(this.connexion.getConn(), id);
 				break;
 			case 3:
-				System.out.println("liste trains");
+				System.out.println("liste train");
+				trainService.getAllTrain(this.connexion.getConn()).stream()
+				.forEach(t -> System.out.println(t.toString()));
+				
+				/*System.out.println("liste gare");
+				gareService.getAllGare(this.connexion.getConn()).stream()
+						.forEach(g -> System.out.println(g.toString()));
+				break;*/
+				
 				break;
 			case 4:
 				return;
@@ -86,7 +121,7 @@ public class Sncf {
 			int chx1 = scan.nextInt();
 			switch (chx1) {
 			case 1:
-				System.out.println("Creation d'un gare");
+				System.out.println("Creation d'une gare");
 				break;
 			case 2:
 				System.out.println("Suppression d'un gare, Entrez son id : ");
